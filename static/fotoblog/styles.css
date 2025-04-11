@@ -1,0 +1,781 @@
+/*<!-- filepath: d:\Desktop\fotoblog\fotoblog\static\fotoblog\styles.css-->*/
+
+body {
+    background-image: url("/static/img/T6-C.jpg"); /* Lien vers ton image de fond */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    flex-direction: column; /* Assurer que les éléments sont alignés verticalement */
+}
+
+h1 {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    z-index: 2; /* Pour s'assurer qu'il soit au-dessus des autres éléments */
+}
+
+form {
+    background-color: rgba(255, 255, 255, 0.9); /* Fond légèrement transparent */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    z-index: 2;
+}
+
+form p {
+    margin-bottom: 15px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    text-align: center;
+}
+
+.a {
+    color:green; /* Couleur du texte plus foncée et lisible */
+    font-weight: bold; /* Texte plus épais */
+    text-decoration: none; /* Pas de sous-ligne */
+}
+
+.a:hover {
+    color: #f0f0f0; /* Changer la couleur du texte au survol */
+    text-decoration: underline; /* Ajouter une sous-ligne au survol pour l'interactivité */
+}
+
+/* === MODE CLAIR MIS À JOUR AVEC OPACITY AJUSTÉE === */
+.light {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #e0e0e0;
+    background-image: url("/static/img/T6-C.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(4px);
+  }
+  
+  .light .sidebar {
+    background-color: rgba(255, 255, 255, 0.07);
+    color: #f0f0f0;
+    backdrop-filter: blur(6px);
+  }
+  
+  .light .sidebar a {
+    color: #f0f0f0;
+  }
+  
+  .light .sidebar a:hover {
+    background-color: rgba(59, 130, 246, 0.15); /* bleu adouci */
+  }
+  
+  .light .sidebar-list-item.active a {
+    background-color: rgba(59, 130, 246, 0.18);
+    border-left: 4px solid #3b82f6;
+  }
+  
+  .light .app-content {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #f5f5f5;
+    backdrop-filter: blur(6px);
+  }
+  
+  .light .products-table th,
+  .light .products-table td {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #f5f5f5;
+    border-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+  }
+  
+  .light .products-table tr:hover {
+    background-color: rgba(59, 130, 246, 0.12); /* survol plus doux */
+  }
+  
+  .light .obs-input {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f8f8f8;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(3px);
+  }
+  
+  .light footer {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ddd;
+    backdrop-filter: blur(3px);
+  }
+  
+  
+/* === TABLEAU STYLE EXCEL === */
+.products-table {
+  width: 100%;
+  border-collapse: collapse; /* Colle les lignes comme un tableau Excel */
+  margin: 20px 0;
+  font-size: 14px;
+  text-align: left;
+}
+
+.products-table th,
+.products-table td {
+  padding: 12px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.products-table th {
+  background-color: rgba(40, 50, 70, 1);
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.products-table tr {
+  background-color: rgba(40, 50, 70, 0.8);
+  transition: background-color 0.3s ease;
+}
+
+.products-table tr:hover {
+  background-color: rgba(40, 50, 70, 1);
+}
+
+.products-table td {
+  color: #fff;
+  background-color: rgba(40, 50, 70, 0.8);
+  border-radius: 0; /* Supprime les coins arrondis pour un style Excel */
+}
+
+/* === MODE SOMBRE MIS À JOUR === */
+.dark {
+    background-color: rgba(0, 30, 0, 0.9); /* Fond sombre avec une teinte verte subtile */
+    color: #ffffff; /* Texte blanc pour une bonne lisibilité */
+    backdrop-filter: blur(4px);
+}
+
+.dark .app-content {
+    background-color: rgba(0, 50, 0, 0.8); /* Zone de contenu avec une teinte verte plus marquée */
+    color: #ffffff;
+    backdrop-filter: blur(6px);
+}
+
+/* Sidebar */
+.dark .sidebar {
+    background-color: rgba(0, 40, 0, 0.9); /* Fond sombre avec une teinte verte subtile */
+    color: #ffffff;
+    backdrop-filter: blur(6px);
+}
+
+.dark .sidebar a {
+    color: #ffffff;
+}
+
+.dark .sidebar a:hover {
+    background-color: rgba(0, 100, 0, 0.5); /* Vert plus vif au survol */
+}
+
+.dark .sidebar-list-item.active a {
+    background-color: rgba(0, 150, 0, 0.5); /* Vert plus marqué pour l'élément actif */
+    border-left: 4px solid #00ff00; /* Bordure verte lumineuse */
+}
+
+/* Tableau */
+.dark .products-table th,
+.dark .products-table td {
+    background-color: rgba(0, 50, 0, 0.8); /* Fond sombre avec une teinte verte subtile */
+    color: #ffffff;
+    border-color: rgba(0, 100, 0, 0.5); /* Bordure verte subtile */
+    backdrop-filter: blur(4px);
+}
+
+.dark .products-table tr:hover {
+    background-color: rgba(0, 70, 0, 0.9); /* Survol avec une teinte verte plus marquée */
+}
+
+/* OBS Input */
+.dark .obs-input {
+    background-color: rgba(0, 40, 0, 0.8); /* Fond sombre avec une teinte verte subtile */
+    color: #ffffff;
+    border: 1px solid rgba(0, 100, 0, 0.5); /* Bordure verte subtile */
+    backdrop-filter: blur(3px);
+}
+
+/* Footer */
+.dark footer {
+    background-color: rgba(0, 30, 0, 0.9); /* Fond sombre avec une teinte verte subtile */
+    color: #ffffff;
+    backdrop-filter: blur(3px);
+}
+
+/* === STYLES AMÉLIORÉS POUR LE LOGIN === */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url("/static/img/T6-C.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+}
+
+.login-box {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+.login-box h1 {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    text-align: left;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #34495e;
+    font-size: 0.95rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    outline: none;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 38px;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+.password-toggle:hover {
+    opacity: 1;
+}
+
+.form-actions {
+    margin-top: 30px;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    background-color: #2869ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-login:hover {
+    background-color: #1a56d0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.alert-danger {
+    color: #e74c3c;
+    background-color: #fde8e8;
+    border: 1px solid #f5c6cb;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.signup-link {
+    margin-top: 25px;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.signup-link a {
+    color: #2869ff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.signup-link a:hover {
+    color: #1a56d0;
+    text-decoration: underline;
+}
+/* Ajoutez ces styles à votre fichier CSS existant */
+
+.password-input-container {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    padding: 0 5px;
+}
+
+.password-toggle:hover {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Assurez-vous que le champ password a un padding à droite pour l'œil */
+#password {
+    padding-right: 40px !important;
+}
+
+/* Styles spécifiques à l'inscription */
+.help-text {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.login-link {
+    margin-top: 20px;
+    text-align: center;
+    color: #7f8c8d;
+}
+
+.login-link a {
+    color: #2869ff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Amélioration des erreurs */
+.alert-danger p {
+    margin: 5px 0;
+}
+
+/* Style des champs du formulaire */
+.login-form input[type="text"],
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.login-form select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 1rem;
+}
+/* Signup Compact */
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.signup-box {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+.signup-box h1 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-group.compact {
+    margin-bottom: 0;
+}
+
+.form-group.compact label {
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-group.compact input,
+.form-group.compact select {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.help-text {
+    font-size: 0.7rem;
+    color: #666;
+    display: block;
+    margin-top: 3px;
+    line-height: 1.3;
+}
+
+.btn-signup {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background: #2869ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.85rem;
+}
+/* Styles pour la modale personnalisée */
+.custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-confirm, .modal-cancel {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-confirm {
+    background-color: #2869ff;
+    color: white;
+}
+
+.modal-cancel {
+    background-color: #f0f0f0;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.action-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.add-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 4px;
+    color: white;
+    z-index: 1000;
+    animation: slide-in 0.5s ease-out;
+}
+
+.toast-success {
+    background-color: #28a745;
+}
+
+.toast-error {
+    background-color: #dc3545;
+}
+
+.fade-out {
+    animation: fade-out 0.5s ease-out forwards;
+}
+
+@keyframes slide-in {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+/* Styles pour les boutons ADD/DELETE */
+.action-cell {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-action {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-action.add {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-action.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-action:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Style personnalisé pour les alertes */
+.custom-swal-popup {
+    font-family: 'Poppins', sans-serif;
+    border-radius: 10px;
+}
+
+.swal2-title {
+    font-size: 1.2rem !important;
+    color: #333 !important;
+}
+
+.swal2-html-container {
+    font-size: 1rem !important;
+}
+
+.swal2-confirm {
+    background-color: #2869ff !important;
+    padding: 8px 20px !important;
+}
+
+.swal2-cancel {
+    background-color: #f0f0f0 !important;
+    color: #333 !important;
+    padding: 8px 20px !important;
+}
+
+/* Style pour la modale personnalisée */
+#custom-confirm-modal {
+    font-family: 'Poppins', sans-serif;
+}
+
+#custom-confirm-modal > div {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    width: 90%;
+    max-width: 400px;
+}
+
+#custom-modal-message {
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+#custom-modal-yes {
+    background: #2869ff;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+#custom-modal-no {
+    background: #f0f0f0;
+    color: #333;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+#custom-modal-yes:hover {
+    background: #1d56d0;
+}
+
+#custom-modal-no:hover {
+    background: #e0e0e0;
+}
+
+/* Style pour la modale de confirmation */
+.confirm-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.confirm-modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.confirm-modal-message {
+    color: #333; /* Couleur de texte visible */
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.confirm-modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.confirm-btn {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.confirm-btn-yes {
+    background: #2869ff;
+    color: white;
+}
+
+.confirm-btn-no {
+    background: #f0f0f0;
+    color: #333;
+}

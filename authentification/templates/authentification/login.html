@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="login-container">
+    <div class="login-box">
+        <h1>GESTION ET SUIVI DES INSPECTIONS DES JANTES T6-C</h1>
+        
+        {% if message %}
+        <div class="alert alert-danger">{{ message }}</div>
+        {% endif %}
+
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" name="username" id="username" required class="form-input">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <div class="password-input-container">
+                    <input type="password" name="password" id="password" required class="form-input">
+                    <span class="password-toggle" id="togglePassword">👁️</span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-login">Se connecter</button>
+            </div>
+        </form>
+
+        <p class="signup-link">
+            Pas encore inscrit ? <a href="{% url 'signup' %}">Inscrivez-vous maintenant !</a>
+        </p>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+    
+    togglePassword.addEventListener('click', function() {
+        // Bascule entre type password et text
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        
+        // Change l'emoji en fonction de l'état
+        this.textContent = type === 'password' ? '👁️' : '🔒';
+    });
+});
+</script>
+{% endblock content %}

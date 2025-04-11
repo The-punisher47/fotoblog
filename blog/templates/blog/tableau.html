@@ -1,0 +1,35 @@
+<table id="products-table" class="products-table">
+    <thead>
+        <tr>
+            <th>PART</th>
+            <th>CAT</th>
+            <th>SERIAL</th>
+            <th>SUPPORT</th>
+            <th>DÉPOSES</th>
+            <th>DERNIER NDI</th>
+            <th>PROCHAIN NDI</th>
+            <th>OBS</th>
+            <th>ACTIONS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for jante in jantes %}
+        <tr data-jante-id="{{ jante.id }}">
+            <td>{{ jante.part_number|truncatechars:10 }}</td>
+            <td>{{ jante.category|slice:3 }}</td>
+            <td>{{ jante.serial_number|truncatechars:8 }}</td>
+            <td>{{ jante.support|truncatechars:8 }}</td>
+            <td>{{ jante.nombre_de_deposes }}</td>
+            <td>{{ jante.dernier_ndi }}</td>
+            <td>{{ jante.prochain_ndi }}</td>
+            <td>
+                <textarea class="obs-input" onblur="updateObs(this, {{ jante.id }})">{{ jante.obs }}</textarea>
+            </td>
+            <td class="action-cell">
+                <button class="btn-action add" onclick="handleAdd('{{ jante.serial_number }}', {{ jante.id }}, this)">ADD</button>
+                <button class="btn-action delete" onclick="handleDelete('{{ jante.serial_number }}', {{ jante.id }}, this)">DELETE</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

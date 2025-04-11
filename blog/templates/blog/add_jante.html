@@ -1,0 +1,13 @@
+<!-- filepath: d:\Desktop\fotoblog\fotoblog\blog\templates\blog\add_jante.html -->
+{% extends "blog/base_blog.html" %}
+
+{% block title %}Ajouter une nouvelle jante{% endblock title %}
+
+{% block content %}
+<h2>Ajouter une nouvelle jante</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="action-button add">Ajouter</button>
+</form>
+{% endblock content %}

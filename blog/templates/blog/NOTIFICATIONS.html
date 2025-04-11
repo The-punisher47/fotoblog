@@ -1,0 +1,15 @@
+<!-- filepath: d:\Desktop\fotoblog\fotoblog\blog\templates\blog\NOTIFICATIONS.html -->
+{% extends "blog/base_blog.html" %}
+
+{% block title %}NOTIFICATIONS{% endblock title %}
+
+{% block content %}
+<h2>Notifications</h2>
+<ul>
+    {% for notification in notifications %}
+        <li>{{ notification.message }} <small>({{ notification.created_at|date:"d/m/Y H:i" }})</small></li>
+    {% empty %}
+        <li>Aucune notification pour le moment.</li>
+    {% endfor %}
+</ul>
+{% endblock content %}

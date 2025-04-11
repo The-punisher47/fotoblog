@@ -1,0 +1,412 @@
+/***<!-- filepath: d:\Desktop\fotoblog\fotoblog\blog\home.css->***/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  height: 100%;
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  background-image: url("/static/img/T6-C.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+/* === SIDEBAR === */
+.sidebar {
+  width: 250px;
+  background-color: #333;
+  color: white;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar-header img {
+  width: 100px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.sidebar-list {
+  list-style: none;
+}
+
+.sidebar-list-item {
+  margin-bottom: 15px;
+}
+
+.sidebar-list-item a {
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-list-item a:hover {
+  background-color: rgba(40, 105, 255, 0.8);
+}
+
+.sidebar-list-item.active a {
+  border-left: 4px solid rgba(40, 105, 255, 1);
+  padding-left: 6px;
+}
+
+.sidebar-list-item svg {
+  margin-right: 10px;
+}
+
+/* === CONTENU PRINCIPAL === */
+.app-content {
+  margin-left: 250px;
+  padding: 20px;
+  background-color: rgba(16, 24, 39, 0.9);
+  min-height: 100vh;
+  overflow-x: auto;
+}
+
+.app-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.app-content-headerText {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.app-content-headerButton {
+  background-color: #2869ff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.app-content-headerButton:hover {
+  background-color: #6291fd;
+}
+
+/* === TABLEAU === */
+.products-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  margin: 20px 0;
+  font-size: 14px;
+  text-align: left;
+}
+
+.products-table th,
+.products-table td {
+  padding: 12px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.products-table th {
+  background-color: rgba(40, 50, 70, 1);
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.products-table tr {
+  background-color: rgba(40, 50, 70, 0.8);
+  transition: background-color 0.3s ease;
+}
+
+.products-table tr:hover {
+  background-color: rgba(40, 50, 70, 1);
+}
+
+.products-table td {
+  color: #fff;
+  background-color: rgba(40, 50, 70, 0.8);
+  border-radius: 5px;
+}
+
+/* === BOUTONS === */
+button, .action-button {
+  background-color: #2869ff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover, .action-button:hover {
+  background-color: #6291fd;
+}
+
+.action-button.add {
+  background-color: #28a745;
+}
+
+.action-button.add:hover {
+  background-color: #218838;
+}
+
+.action-button.delete {
+  background-color: #dc3545;
+}
+
+.action-button.delete:hover {
+  background-color: #c82333;
+}
+
+/* === OBS === */
+.obs-input {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.obs-input:focus {
+  border-color: #2869ff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(40, 105, 255, 0.5);
+}
+
+/* === ACTIONS COLONNE === */
+.product-cell.action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-button {
+  flex: 1;
+  text-align: center;
+}
+
+/* === MODE CLAIR === */
+/* Mode clair très adouci */
+/* Mode clair adouci avec base gris neutre */
+.light {
+  background-color: rgba(120, 120, 120, 0.06); /* Fond principal adouci */
+  color: #fefefe;
+  backdrop-filter: blur(3px);
+}
+
+.light .app-content {
+  background-color: rgba(120, 120, 120, 0.08); /* Zone de contenu */
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+}
+
+/* Sidebar */
+.light .sidebar {
+  background-color: rgba(120, 120, 120, 0.1);
+  color: #ffffff;
+}
+
+.light .sidebar a {
+  color: #ffffff;
+}
+
+.light .sidebar a:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.light .sidebar-list-item.active a {
+  background-color: rgba(59, 130, 246, 0.12);
+  border-left: 4px solid #3b82f6;
+}
+
+/* Tableau */
+.light .products-table th,
+.light .products-table td {
+  background-color: rgba(120, 120, 120, 0.15);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(2px);
+}
+
+.light .products-table tr:hover {
+  background-color: rgba(120, 120, 120, 0.25);
+}
+
+/* OBS Input */
+.light .obs-input {
+  background-color: rgba(120, 120, 120, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Footer */
+.light footer {
+  background-color: rgba(120, 120, 120, 0.1);
+  color: #ddd;
+}
+
+/* Styliser le bouton SE DECONNECTER */
+.logout-link {
+    display: inline-block;
+    background-color: #007bff; /* Bleu */
+    color: #ffffff; /* Texte blanc */
+    padding: 10px 20px; /* Espacement interne */
+    border-radius: 8px; /* Coins arrondis */
+    text-decoration: none; /* Supprime la sous-ligne */
+    font-weight: bold; /* Texte en gras */
+    text-align: center; /* Centrer le texte */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Animation fluide */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre */
+}
+
+.logout-link:hover {
+    background-color: #0056b3; /* Bleu plus foncé au survol */
+    transform: scale(1.05); /* Légère mise en avant au survol */
+    text-decoration: none; /* Pas de sous-ligne au survol */
+}
+
+/* === FOOTER === */
+footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .app-content-headerText {
+    font-size: 20px;
+  }
+
+  .products-header, .products-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+body::after {
+  content: "MODE CLAIR ACTIF";
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background: red;
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+  z-index: 9999;
+}
+
+/* Centraliser les titres */
+.home-container h1, 
+.home-container h2, 
+.home-container h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Style pour la citation */
+.home-container .quote {
+    font-family: 'Georgia', serif; /* Police élégante pour la citation */
+    font-style: italic;
+    text-align: center;
+    color: #ccc; /* Couleur douce pour la citation */
+    margin-top: 20px;
+}
+
+/* Centrer la page HOME */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Prend toute la hauteur de la fenêtre */
+    text-align: center; /* Centre le texte */
+    padding: 20px; /* Ajoute un peu d'espace autour */
+}
+
+/* Espacement entre le titre et le texte */
+.home-container h1 {
+    margin-bottom: 20px; /* Espace sous le titre */
+}
+
+.home-container p {
+    margin-bottom: 15px; /* Espace sous chaque paragraphe */
+}
+
+/* Style pour la modale personnalisée */
+#custom-confirm-modal {
+    font-family: 'Poppins', sans-serif;
+}
+
+#custom-confirm-modal > div {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    width: 90%;
+    max-width: 400px;
+}
+
+#custom-modal-message {
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+#custom-modal-yes {
+    background: #2869ff;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+#custom-modal-no {
+    background: #f0f0f0;
+    color: #333;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+#custom-modal-yes:hover {
+    background: #1d56d0;
+}
+
+#custom-modal-no:hover {
+    background: #e0e0e0;
+}
+

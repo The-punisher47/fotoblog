@@ -1,0 +1,50 @@
+<!-- filepath: d:\Desktop\fotoblog\fotoblog\blog\templates\blog\TABLEAU_BORD.html -->
+{% extends "blog/base_blog.html" %}
+
+{% block title %}TABLEAU DE BORD{% endblock title %}
+
+{% block content %}
+<h2>TABLEAU DE BORD</h2>
+<p>Bienvenue sur la page TABLEAU DE BORD.</p>
+
+<!-- Affichage des données -->
+<p>Nombre total de jantes : <strong>{{ total_jantes }}</strong></p>
+<p>Nombre de jantes en service : <strong>{{ jantes_en_service }}</strong></p>
+
+<!-- Graphique -->
+<div style="width: 300px; margin: 20px auto;"> <!-- Réduction de la taille du graphique -->
+  <canvas id="jantesChart"></canvas>
+</div>
+
+<!-- Liens de téléchargement -->
+<div class="download-buttons">
+  <a href="{% url 'export_table_pdf' %}" class="action-button add">Télécharger en PDF</a>
+  <a href="{% url 'export_table_excel' %}" class="action-button add">Télécharger en Excel</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('jantesChart').getContext('2d');
+  const jantesChart = new Chart(ctx, {
+    type: 'doughnut', // Type de graphique
+    data: {
+      labels: ['En service', 'Hors service'],
+      datasets: [{
+        label: 'Jantes',
+        data: [{{ jantes_en_service }}, {{ jantes_hors_service }}], // Données dynamiques
+        backgroundColor: ['#28a745', '#dc3545'], // Couleurs distinctes
+        hoverBackgroundColor: ['#218838', '#c82333'], // Couleurs au survol
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+      }
+    }
+  });
+</script>
+{% endblock content %}

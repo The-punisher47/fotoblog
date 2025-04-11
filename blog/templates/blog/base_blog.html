@@ -1,0 +1,53 @@
+<!-- filepath: d:\Desktop\fotoblog\fotoblog\blog\templates\blog\base_blog.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'blog/home.css' %}">
+    <title>{% block title %}Fotoblog{% endblock title %}</title>
+</head>
+<body>
+    <!-- Sidebar fixe -->
+    {% include "blog/zone_gauche.html" %}
+
+    <!-- Contenu principal -->
+    <div class="app-content">
+        <!-- Header fixe -->
+        {% include "blog/header.html" %}
+        
+        <!-- Afficher header2 uniquement sur certaines pages -->
+        {% if request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'TABLEAU_BORD' and request.resolver_match.url_name != 'NOTIFICATIONS' and request.resolver_match.url_name != 'add_jante' %} 
+          {% include "blog/header2.html" %}
+        {% endif %}
+
+        
+        <!-- Contenu dynamique -->
+        <div class="dynamic-content">
+            {% block content %}{% endblock content %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Fotoblog. All rights reserved.</p>
+    </footer>
+    <script src="{% static 'blog/home.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- MODALE DE CONFIRMATION -->
+    <div id="confirmation-modal" class="modal-overlay" style="display: none;">
+      <div class="modal-box">
+        <p id="modal-message">Veux-tu faire une dépose ?</p>
+        <div class="modal-buttons">
+          <button id="confirm-oui" class="action-button add">Oui</button>
+          <button id="confirm-non" class="action-button delete">Non</button>
+        </div>
+      </div>
+    </div>
+    <!-- DEBUG -->
+    <div style="position:fixed;bottom:0;left:0;background:#000;color:#fff;padding:5px;">
+        has_unread_notifications: {{ has_unread_notifications }}
+    </div>
+</body>
+</html>

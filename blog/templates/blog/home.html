@@ -1,0 +1,43 @@
+<!-- filepath: d:\Desktop\fotoblog\fotoblog\blog\templates\blog\home.html -->
+{% extends "blog/base_blog.html" %}
+
+{% block title %}Accueil{% endblock title %}
+
+{% block content %}
+<div class="home-container">
+    <!-- Message d'accueil personnalisé -->
+    <h1>Bienvenue, {{ user.username }} !</h1>
+    <p class="welcome-message">Bienvenue sur la plateforme de gestion et de suivi des inspections des jantes T6-C.</p>
+
+    <!-- Instructions / résumé du projet -->
+    <div class="project-summary">
+        <h3>📌 À propos de la plateforme</h3>
+        <p>
+            Cette plateforme vous permet de suivre les inspections NDI des jantes T6-C, de gérer les déposes, 
+            et de recevoir des notifications pour les contrôles à venir.
+        </p>
+    </div>
+
+    <!-- Résumé des dernières activités -->
+    <div class="recent-activities">
+        <h3>🕒 Dernières modifications</h3>
+        <ul>
+            {% for activity in recent_activities %}
+                <li>{{ activity.message }} <small>({{ activity.created_at|date:"d/m/Y H:i" }})</small></li>
+            {% empty %}
+                <li>Aucune activité récente.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Affichage visuel d’état général -->
+    <div class="general-status">
+        <h2>Plateforme de suivi NDI pour jantes T6-C</h2>
+        <p class="quote">"Une inspection préventive, c’est une panne évitée."</p>
+    </div>
+</div>
+{% endblock content %}
+
+{% block tableau %}
+ {% include "tableau.html" %}
+{%endblock tableau%}

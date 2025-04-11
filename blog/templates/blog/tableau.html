@@ -16,7 +16,7 @@
         {% for jante in jantes %}
         <tr data-jante-id="{{ jante.id }}">
             <td>{{ jante.part_number|truncatechars:10 }}</td>
-            <td>{{ jante.category|slice:3 }}</td>
+            <td>{{ jante.category }}</td>
             <td>{{ jante.serial_number|truncatechars:8 }}</td>
             <td>{{ jante.support|truncatechars:8 }}</td>
             <td>{{ jante.nombre_de_deposes }}</td>

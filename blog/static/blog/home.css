@@ -1,6 +1,8 @@
 /***<!-- filepath: d:\Desktop\fotoblog\fotoblog\blog\home.css->***/
+/* === IMPORTATION DES FONTS === */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap");
 
+/* === RÉINITIALISATION GLOBALE === */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -360,53 +362,193 @@ body::after {
 }
 
 /* Style pour la modale personnalisée */
-#custom-confirm-modal {
-    font-family: 'Poppins', sans-serif;
+.custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7); /* Fond semi-transparent plus sombre */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-#custom-confirm-modal > div {
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    width: 90%;
-    max-width: 400px;
+.modal-content {
+  background: #2c3e50; /* Fond sombre pour un meilleur contraste */
+  color: #ecf0f1; /* Texte clair pour être lisible sur le fond sombre */
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Ombre plus marquée */
 }
 
-#custom-modal-message {
-    margin-bottom: 25px;
-    font-size: 1.1rem;
-    color: #333;
-    line-height: 1.5;
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-#custom-modal-yes {
-    background: #2869ff;
+.modal-confirm, .modal-cancel {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-confirm {
+  background-color: #28a745; /* Vert pour confirmer */
+  color: white;
+}
+
+.modal-cancel {
+  background-color: #dc3545; /* Rouge pour annuler */
+  color: white;
+}
+
+.modal-confirm:hover {
+  background-color: #218838; /* Vert plus foncé au survol */
+}
+
+.modal-cancel:hover {
+  background-color: #c82333; /* Rouge plus foncé au survol */
+}
+
+/* Bouton ADD */
+.btn-action.add {
+    background-color: #28a745; /* Vert */
     color: white;
-    padding: 10px 25px;
     border: none;
-    border-radius: 6px;
+    padding: 10px 15px;
+    border-radius: 5px;
     cursor: pointer;
-    font-weight: 500;
-    transition: background 0.2s;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-#custom-modal-no {
-    background: #f0f0f0;
-    color: #333;
-    padding: 10px 25px;
+.btn-action.add:hover {
+    background-color: #218838; /* Vert plus foncé au survol */
+}
+
+/* Bouton DELETE */
+.btn-action.delete {
+    background-color: #dc3545; /* Rouge */
+    color: white;
     border: none;
-    border-radius: 6px;
+    padding: 10px 15px;
+    border-radius: 5px;
     cursor: pointer;
-    font-weight: 500;
-    transition: background 0.2s;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-#custom-modal-yes:hover {
-    background: #1d56d0;
+.btn-action.delete:hover {
+    background-color: #c82333; /* Rouge plus foncé au survol */
 }
 
-#custom-modal-no:hover {
-    background: #e0e0e0;
+/* Styles pour la page Ajouter une nouvelle jante */
+.add-jante-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh; /* Centrer verticalement */
+    text-align: center;
+    padding: 20px;
 }
 
+.add-jante-container h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #e01010; /* Couleur du texte */
+}
+
+.add-jante-form {
+    width: 100%;
+    max-width: 400px; /* Limite la largeur du formulaire */
+    background-color: rgba(16, 23, 205, 0.9); /* Fond légèrement transparent */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre */
+}
+
+.add-jante-form p {
+    margin-bottom: 15px;
+    text-align: left; /* Aligne les labels à gauche */
+}
+
+.add-jante-form input,
+.add-jante-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.add-jante-form input:focus,
+.add-jante-form select:focus {
+    border-color: #2869ff; /* Couleur de la bordure au focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(40, 105, 255, 0.5);
+}
+
+.btn-add-jante {
+    background-color: #28a745; /* Vert pour le bouton Ajouter */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto; /* Centre le bouton horizontalement */
+}
+
+.btn-add-jante:hover {
+    background-color: #218838; /* Vert plus foncé au survol */
+}
+
+/* Styles pour les boutons de téléchargement */
+.download-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espacement entre les boutons */
+    margin-bottom: 20px; /* Espacement sous les boutons */
+}
+
+.download-buttons .action-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.download-buttons .action-button.add {
+    background-color: #007bff; /* Bleu pour les boutons */
+    color: white;
+}
+
+.download-buttons .action-button.add:hover {
+    background-color: #0056b3; /* Bleu plus foncé au survol */
+}
+
+/* Styles pour le conteneur du graphique */
+.chart-container {
+    width: 100%;
+    max-width: 600px; /* Limite la largeur du graphique */
+    margin: 0 auto; /* Centre le graphique */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Fond blanc légèrement transparent */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre */
+}

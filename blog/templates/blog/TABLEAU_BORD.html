@@ -7,19 +7,15 @@
 <h2>TABLEAU DE BORD</h2>
 <p>Bienvenue sur la page TABLEAU DE BORD.</p>
 
-<!-- Affichage des données -->
-<p>Nombre total de jantes : <strong>{{ total_jantes }}</strong></p>
-<p>Nombre de jantes en service : <strong>{{ jantes_en_service }}</strong></p>
-
-<!-- Graphique -->
-<div style="width: 300px; margin: 20px auto;"> <!-- Réduction de la taille du graphique -->
-  <canvas id="jantesChart"></canvas>
-</div>
-
 <!-- Liens de téléchargement -->
 <div class="download-buttons">
   <a href="{% url 'export_table_pdf' %}" class="action-button add">Télécharger en PDF</a>
   <a href="{% url 'export_table_excel' %}" class="action-button add">Télécharger en Excel</a>
+</div>
+
+<!-- Graphique -->
+<div class="chart-container">
+  <canvas id="jantesChart"></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

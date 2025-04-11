@@ -536,12 +536,12 @@ function showConfirmModal(message, callback) {
             max-width: 400px;
             text-align: center;
         ">
-            <p style="margin-bottom: 20px;">${message}</p>
+            <p style="margin-bottom: 20px; color: black; font-size: 1.2rem;">${message}</p>
             <div>
                 <button id="confirm-yes" style="
                     padding: 8px 20px;
                     margin-right: 10px;
-                    background: #2869ff;
+                    background: #28a745; /* Vert pour OUI */
                     color: white;
                     border: none;
                     border-radius: 4px;
@@ -549,7 +549,8 @@ function showConfirmModal(message, callback) {
                 ">OUI</button>
                 <button id="confirm-no" style="
                     padding: 8px 20px;
-                    background: #f0f0f0;
+                    background: #007bff; /* Bleu pour NON */
+                    color: white;
                     border: none;
                     border-radius: 4px;
                     cursor: pointer;
@@ -562,11 +563,12 @@ function showConfirmModal(message, callback) {
     
     document.getElementById('confirm-yes').onclick = () => {
         document.body.removeChild(modal);
-        callback();
+        callback(true);
     };
     
     document.getElementById('confirm-no').onclick = () => {
         document.body.removeChild(modal);
+        callback(false);
     };
 }
 
@@ -606,10 +608,13 @@ function showFeedback(message, type) {
       bottom: 20px;
       right: 20px;
       padding: 12px 20px;
-      background: ${type === 'success' ? '#28a745' : '#dc3545'};
-      color: white;
+      background: ${type === 'success' ? '#28a745' : '#dc3545'}; /* Vert pour succès, rouge pour erreur */
+      color: white; /* Couleur du texte */
+      font-size: 1rem; /* Taille du texte */
+      font-weight: bold; /* Texte en gras */
       border-radius: 4px;
       z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Ombre pour un meilleur contraste */
   `;
   feedback.textContent = message;
   document.body.appendChild(feedback);
@@ -617,4 +622,88 @@ function showFeedback(message, type) {
   setTimeout(() => {
       feedback.remove();
   }, 3000);
+}
+
+function showConfirmModal(message, callback) {
+    const modal = document.createElement('div');
+    modal.style = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    `;
+    
+    modal.innerHTML = `
+        <div style="
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        ">
+            <p style="margin-bottom: 20px; color: black; font-size: 1.2rem;">${message}</p>
+            <div>
+                <button id="confirm-yes" style="
+                    padding: 8px 20px;
+                    margin-right: 10px;
+                    background: #28a745; /* Vert pour OUI */
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                ">OUI</button>
+                <button id="confirm-no" style="
+                    padding: 8px 20px;
+                    background: #007bff; /* Bleu pour NON */
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                ">NON</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Action pour le bouton OUI
+    document.getElementById('confirm-yes').onclick = () => {
+        document.body.removeChild(modal);
+        callback(true); // Exécute l'action si OUI est cliqué
+    };
+    
+    // Action pour le bouton NON
+    document.getElementById('confirm-no').onclick = () => {
+        document.body.removeChild(modal);
+        callback(false); // Ne fait rien si NON est cliqué
+    };
+}
+
+function handleAdd(serialNumber, janteId, button) {
+    showConfirmModal(
+        `Voulez-vous ajouter une dépose à la jante ${serialNumber} ?`,
+        (confirmed) => {
+            if (confirmed) {
+                performAction(janteId, 'add', button); // Exécute l'action uniquement si OUI est cliqué
+            }
+        }
+    );
+}
+
+function handleDelete(serialNumber, janteId, button) {
+    showConfirmModal(
+        `Voulez-vous retirer une dépose à la jante ${serialNumber} ?`,
+        (confirmed) => {
+            if (confirmed) {
+                performAction(janteId, 'delete', button); // Exécute l'action uniquement si OUI est cliqué
+            }
+        }
+    );
 }

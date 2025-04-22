@@ -4,13 +4,44 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>app</title>
+        <title>{% block title %}App{% endblock title %}</title>
         {% load static %}
-        <link rel="stylesheet" type="" href="{% static 'fotoblog/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'fotoblog/styles.css' %}">
     </head>
     <body>
-        
-        {% block content %}{% endblock content %}
-        
+        <!-- Barre de navigation -->
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Accueil</a></li>
+                    <li><a href="{% url 'tableau_bord' %}">Tableau de bord</a></li>
+                    <li><a href="{% url 'gestion' %}">Gestion</a></li>
+                    <li><a href="{% url 'NOTIFICATIONS_view' %}">Notifications</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Section des notifications -->
+        <div class="notifications">
+            {% if notifications %}
+                <ul>
+                    {% for notification in notifications %}
+                        <li>{{ notification.message }} - {{ notification.created_at }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Aucune notification.</p>
+            {% endif %}
+        </div>
+
+        <!-- Contenu principal -->
+        <main>
+            {% block content %}{% endblock content %}
+        </main>
+
+        <!-- Pied de page -->
+        <footer>
+            <p>&copy; 2025 Fotoblog. Tous droits réservés.</p>
+        </footer>
     </body>
 </html>

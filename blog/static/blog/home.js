@@ -512,65 +512,6 @@ function handleDelete(serialNumber, janteId, button) {
   );
 }
 
-function showConfirmModal(message, callback) {
-    const modal = document.createElement('div');
-    modal.style = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    `;
-    
-    modal.innerHTML = `
-        <div style="
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            width: 80%;
-            max-width: 400px;
-            text-align: center;
-        ">
-            <p style="margin-bottom: 20px; color: black; font-size: 1.2rem;">${message}</p>
-            <div>
-                <button id="confirm-yes" style="
-                    padding: 8px 20px;
-                    margin-right: 10px;
-                    background: #28a745; /* Vert pour OUI */
-                    color: white;
-                    border: none;
-                    border-radius: 4px;
-                    cursor: pointer;
-                ">OUI</button>
-                <button id="confirm-no" style="
-                    padding: 8px 20px;
-                    background: #007bff; /* Bleu pour NON */
-                    color: white;
-                    border: none;
-                    border-radius: 4px;
-                    cursor: pointer;
-                ">NON</button>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    document.getElementById('confirm-yes').onclick = () => {
-        document.body.removeChild(modal);
-        callback(true);
-    };
-    
-    document.getElementById('confirm-no').onclick = () => {
-        document.body.removeChild(modal);
-        callback(false);
-    };
-}
 
 function performAction(janteId, action, button) {
   const url = action === 'add' 
@@ -707,3 +648,197 @@ function handleDelete(serialNumber, janteId, button) {
         }
     );
 }
+// Gestion du marquage individuel des notifications comme lues
+document.addEventListener("DOMContentLoaded", function() {
+  // Écouteur pour les boutons "Marquer comme lu"
+  document.querySelectorAll('.mark-as-read-btn').forEach(button => {
+      button.addEventListener('click', function() {
+          const notificationId = this.dataset.notificationId;
+          markNotificationAsRead(notificationId, this);
+      });
+  });
+});
+
+function markNotificationAsRead(notificationId, buttonElement) {
+  fetch(`/mark-notification-as-read/${notificationId}/`, {
+      method: "POST",
+      headers: {
+          "X-CSRFToken": getCookie("csrftoken"),
+      },
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          // Mise à jour de l'interface
+          const row = buttonElement.closest('tr');
+          row.classList.remove('unread');
+          
+          // Mise à jour du statut
+          const statusCell = row.querySelector('td:nth-child(3)');
+          if (statusCell) {
+              statusCell.textContent = '✅ Lu';
+          }
+          
+          // Suppression du bouton
+          buttonElement.remove();
+          
+          // Mise à jour du compteur global si nécessaire
+          updateNotificationDot();
+      } else {
+          console.error("Erreur lors du marquage comme lu:", data.message);
+      }
+  })
+  .catch(error => {
+      console.error("Erreur réseau:", error);
+  });
+}
+
+// Gestion du marquage individuel
+document.addEventListener("DOMContentLoaded", function() {
+  // Écouteur pour les boutons "Marquer comme lu"
+  document.querySelectorAll('.mark-single-read-btn').forEach(button => {
+      button.addEventListener('click', function() {
+          const notificationId = this.dataset.notificationId;
+          markSingleNotificationAsRead(notificationId, this);
+      });
+  });
+});
+
+function markSingleNotificationAsRead(notificationId, buttonElement) {
+  fetch(`/mark-notification-as-read/${notificationId}/`, {
+      method: "POST",
+      headers: {
+          "X-CSRFToken": getCookie("csrftoken"),
+      },
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          // Trouver la ligne parente
+          const row = buttonElement.closest('tr');
+          
+          // Mettre à jour le statut
+          const statusCell = row.querySelector('.status-cell');
+          if (statusCell) {
+              statusCell.textContent = '✅ Lu';
+          }
+          
+          // Supprimer le bouton
+          buttonElement.remove();
+          
+          // Mettre à jour la classe de la ligne
+          row.classList.remove('unread');
+          
+          // Mettre à jour le point rouge des notifications
+          updateNotificationDot();
+      }
+  })
+  .catch(error => {
+      console.error("Erreur:", error);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Récupérer l'état stocké ou initialiser
+  const readNotifications = JSON.parse(localStorage.getItem('readNotifications') || '[]');
+  
+  // Mettre à jour l'interface avec les notifications déjà lues
+  readNotifications.forEach(id => {
+      const row = document.querySelector(`tr[data-notification-id="${id}"]`);
+      if (row) {
+          row.querySelector('.status-cell').textContent = '✅ Lu';
+          const btn = row.querySelector('.mark-single-read-btn');
+          btn.disabled = true;
+          btn.textContent = 'Déjà lu';
+          btn.classList.add('disabled-btn');
+      }
+  });
+
+  // Gestion du clic sur les boutons
+  document.querySelectorAll('.mark-single-read-btn').forEach(button => {
+      button.addEventListener('click', function() {
+          const notificationId = this.dataset.notificationId;
+          const row = this.closest('tr');
+          
+          // Empêcher le double marquage
+          if (readNotifications.includes(notificationId)) return;
+
+          // 1. Mettre à jour l'interface immédiatement
+          row.querySelector('.status-cell').textContent = '✅ Lu';
+          this.disabled = true;
+          this.textContent = 'Déjà lu';
+          this.classList.add('disabled-btn');
+          
+          // 2. Ajouter à la liste des lues
+          readNotifications.push(notificationId);
+          localStorage.setItem('readNotifications', JSON.stringify(readNotifications));
+          
+          // 3. Envoyer la requête au serveur
+          fetch(`/mark-notification-as-read/${notificationId}/`, {
+              method: "POST",
+              headers: {
+                  "X-CSRFToken": getCookie("csrftoken"),
+              },
+          }).then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    console.error("Erreur serveur:", data.message);
+                }
+            });
+          
+          // 4. Mettre à jour le point rouge global
+          updateNotificationDot();
+      });
+  });
+});
+
+// Fonction pour sauvegarder automatiquement les observations
+function updateObs(textarea) {
+  const janteId = textarea.dataset.janteId;
+  const obsValue = textarea.value;
+
+  // Afficher un indicateur de sauvegarde
+  const originalBackground = textarea.style.backgroundColor;
+  textarea.style.backgroundColor = '#fff8e1';
+  textarea.disabled = true;
+
+  fetch(`/update-obs/${janteId}/`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "X-CSRFToken": getCookie("csrftoken"),
+      },
+      body: `obs=${encodeURIComponent(obsValue)}`
+  })
+  .then(response => response.json())
+  .then(data => {
+      textarea.style.backgroundColor = originalBackground;
+      textarea.disabled = false;
+      
+      if (data.success) {
+          // Optionnel: Afficher un feedback visuel
+          textarea.style.border = '1px solid #4CAF50';
+          setTimeout(() => {
+              textarea.style.border = '1px solid #ddd';
+          }, 1000);
+      } else {
+          console.error("Erreur:", data.message);
+      }
+  })
+  .catch(error => {
+      textarea.style.backgroundColor = '#ffebee';
+      textarea.disabled = false;
+      console.error("Erreur réseau:", error);
+  });
+}
+
+// Optionnel: Sauvegarde avec Ctrl+Entrée
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.obs-input').forEach(textarea => {
+      textarea.addEventListener('keydown', function(e) {
+          if (e.ctrlKey && e.key === 'Enter') {
+              updateObs(this);
+          }
+      });
+  });
+});

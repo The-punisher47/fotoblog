@@ -838,3 +838,181 @@ p {
 .modal-cancel:hover {
   background-color: #c82333; /* Rouge plus foncé au survol */
 }
+
+/* Style pour la barre de navigation */
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    background-color: #333;
+    padding: 10px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Style pour le contenu principal */
+.section-container {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style pour les notifications */
+.notification-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.notification-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Conteneur principal des notifications */
+.notifications-container {
+    padding: 2rem;
+    color: #fff;
+}
+
+/* Conteneur pour le tableau défilant */
+.table-container {
+    overflow-x: auto;
+    max-height: 400px; /* Limite la hauteur pour activer le défilement vertical */
+    overflow-y: auto;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+/* Style du tableau */
+.notifications-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(30, 30, 30, 0.8); /* Fond semi-transparent */
+}
+
+.notifications-table thead {
+    background-color: #444; /* Couleur de l'en-tête */
+}
+
+.notifications-table th,
+.notifications-table td {
+    padding: 12px;
+    border: 1px solid #555;
+    text-align: left;
+}
+
+/* Style pour les notifications non lues */
+.notifications-table tr.unread {
+    background-color: #2a2a2a;
+    font-weight: bold;
+}
+
+/* Formulaire pour marquer les notifications comme lues */
+.mark-read-form {
+    margin-top: 1rem;
+    text-align: right;
+}
+
+/* Bouton pour marquer comme lu */
+.mark-read-btn {
+    background-color: #008cff;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.mark-read-btn:hover {
+    background-color: #006bb3;
+}
+
+
+.notifications-container {
+    padding: 2rem;
+    color: #fff;
+}
+
+.table-container {
+    max-height: 400px; /* Limite la hauteur */
+    overflow-y: auto; /* Active la barre verticale si nécessaire */
+    border: 1px solid #444;
+    border-radius: 8px;
+    background-color: rgba(20, 20, 20, 0.85);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Personnalise la scrollbar pour le dark mode */
+.table-container::-webkit-scrollbar {
+    width: 8px;
+}
+.table-container::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+.table-container::-webkit-scrollbar-thumb {
+    background-color: #666;
+    border-radius: 10px;
+}
+
+/* Table style */
+.notifications-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #eee;
+}
+
+.notifications-table thead {
+    background-color: #333;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.notifications-table th,
+.notifications-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #444;
+    text-align: left;
+}
+
+.notifications-table tr.unread {
+    background-color: #252525;
+    font-weight: bold;
+    color: #ffeb3b; /* Jaune doux pour alerter */
+}
+
+.notifications-table tr:hover {
+    background-color: #2f2f2f;
+}
+
+.mark-read-form {
+    margin-top: 1rem;
+    text-align: right;
+}
+
+.mark-read-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.mark-read-btn:hover {
+    background-color: #0056b3;
+}

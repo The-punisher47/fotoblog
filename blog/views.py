@@ -90,13 +90,14 @@ def ajouter_depose(request, jante_id):
         try:
             jante = Jante.objects.get(id=jante_id)
             jante.nombre_de_deposes += 1
-            jante.update_ndi_values()  # Cette méthode doit mettre à jour les champs NDI
+            jante.update_ndi_values()  # Met à jour les valeurs NDI
+            jante.check_and_create_notification()  # Vérifie et crée une notification si nécessaire
             jante.save()
             return JsonResponse({
                 'success': True,
                 'nombre_de_deposes': jante.nombre_de_deposes,
-                'dernier_ndi': jante.dernier_ndi,  # Obligatoire
-                'prochain_ndi': jante.prochain_ndi   # Obligatoire
+                'dernier_ndi': jante.dernier_ndi,
+                'prochain_ndi': jante.prochain_ndi
             })
         except Jante.DoesNotExist:
             return JsonResponse({"success": False, "message": "Jante introuvable."})
@@ -197,5 +198,33 @@ def check_unread_notifications(request):
     has_unread_notifications = Notification.objects.filter(is_read=False).exists()
     return JsonResponse({"has_unread_notifications": has_unread_notifications})
 
+def afficher_notifications(request):
+    notifications = Notification.objects.filter(is_read=False).order_by('-created_at')
+    return render(request, 'base.html', {'notifications': notifications})
 
 
+    
+
+    
+@login_required
+@csrf_exempt
+def mark_notification_as_read(request, notification_id):
+    try:
+        notification = Notification.objects.get(id=notification_id)
+        notification.is_read = True  # Marquer comme lu en base
+        notification.save()
+        return JsonResponse({"success": True})
+    except Notification.DoesNotExist:
+        return JsonResponse({"success": False, "message": "Notification introuvable."})
+    
+@csrf_exempt
+def update_obs(request, jante_id):
+    if request.method == "POST":
+        try:
+            jante = Jante.objects.get(id=jante_id)
+            jante.obs = request.POST.get("obs", "")
+            jante.save()
+            return JsonResponse({"success": True, "obs": jante.obs})
+        except Jante.DoesNotExist:
+            return JsonResponse({"success": False, "message": "Jante introuvable."})
+    return JsonResponse({"success": False, "message": "Méthode non autorisée."})

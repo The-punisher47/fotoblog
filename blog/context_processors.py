@@ -8,3 +8,8 @@ def unread_notifications(request):
             'has_unread_notifications': Notification.objects.filter(is_read=False).exists()
         }
     return {}
+
+def notifications_processor(request):
+    return {
+        'notifications': Notification.objects.filter(is_read=False).order_by('-created_at')
+    }

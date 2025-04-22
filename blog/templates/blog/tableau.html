@@ -23,7 +23,9 @@
             <td>{{ jante.dernier_ndi }}</td>
             <td>{{ jante.prochain_ndi }}</td>
             <td>
-                <textarea class="obs-input" onblur="updateObs(this, {{ jante.id }})">{{ jante.obs }}</textarea>
+                <textarea class="obs-input" 
+                          data-jante-id="{{ jante.id }}"
+                          onblur="updateObs(this)">{{ jante.obs }}</textarea>
             </td>
             <td class="action-cell">
                 <button class="btn-action add" onclick="handleAdd('{{ jante.serial_number }}', {{ jante.id }}, this)">ADD</button>

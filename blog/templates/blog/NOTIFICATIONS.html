@@ -1,15 +1,40 @@
-<!-- filepath: d:\Desktop\fotoblog\fotoblog\blog\templates\blog\NOTIFICATIONS.html -->
 {% extends "blog/base_blog.html" %}
 
-{% block title %}NOTIFICATIONS{% endblock title %}
+{% block title %}Notifications{% endblock title %}
 
 {% block content %}
-<h2>Notifications</h2>
-<ul>
-    {% for notification in notifications %}
-        <li>{{ notification.message }} <small>({{ notification.created_at|date:"d/m/Y H:i" }})</small></li>
-    {% empty %}
-        <li>Aucune notification pour le moment.</li>
-    {% endfor %}
-</ul>
+<div class="notifications-wrapper">
+    <h2>📬 Centre de notifications</h2>
+
+    {% if notifications %}
+        <div class="notifications-dialogue-box">
+            <table class="notifications-table">
+                <thead>
+                    <tr>
+                        <th>Message</th>
+                        <th>Date</th>
+                        <th>Statut</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for notification in notifications %}
+                    <tr data-notification-id="{{ notification.id }}">
+                        <td>{{ notification.message }}</td>
+                        <td>{{ notification.created_at|date:"d/m/Y H:i" }}</td>
+                        <td class="status-cell">🔴 Non lu</td> <!-- Toujours affiché comme Non lu initialement -->
+                        <td class="action-cell">
+                            <button class="mark-single-read-btn" data-notification-id="{{ notification.id }}">
+                                Marquer comme lu
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>Vous n'avez aucune notification.</p>
+    {% endif %}
+</div>
 {% endblock content %}

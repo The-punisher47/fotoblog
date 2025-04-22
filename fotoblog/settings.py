@@ -57,15 +57,14 @@ ROOT_URLCONF = 'fotoblog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR.joinpath('templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'blog.context_processors.unread_notifications',  # Ajout du context processor
+                'django.contrib.messages.context_processors.messages',  # Ajoutez cette ligne
+                'blog.context_processors.notifications_processor',  # Votre context processor personnalisé
             ],
         },
     },

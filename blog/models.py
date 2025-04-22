@@ -24,7 +24,7 @@ class Jante(models.Model):
             # Logique pour les autres cas
             intervals = [
                 (0, 5), (5, 10), (10, 15), (15, 18), (18, 21), (21, 24),
-                (24, 27), (30, 33), (33, 36), (36, 39), (42, 45), (46, 47),
+                (24, 27), (27, 30),(30, 33), (33, 36), (36, 39), (39, 42),(42, 45), (46, 47),
                 (47, 48), (48, 49), (49, 50), (50, 51), (51, 52), (52, 53),
                 (53, 54), (54, 55), (55, 56), (56, 57), (58, 59), (59, 60)
             ]
@@ -35,6 +35,14 @@ class Jante(models.Model):
                     break
         self.save()
 
+    def check_and_create_notification(self):
+        """Crée une notification si le nombre de déposes atteint prochain_ndi - 1."""
+        if self.prochain_ndi != "HS" and self.nombre_de_deposes == int(self.prochain_ndi) - 1:
+            Notification.objects.create(
+                message=f"La jante {self.serial_number} approche de son prochain NDI ({self.prochain_ndi}).",
+                is_read=False
+            )
+
     def action_buttons(self):
         """Génère les boutons Add et Delete pour le tableau."""
         return format_html(
@@ -43,9 +51,9 @@ class Jante(models.Model):
         )
 
 class Notification(models.Model):
-    message = models.TextField()
+    message = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
-    is_read = models.BooleanField(default=False)  # Nouveau champ pour indiquer si la notification est lue
+    is_read = models.BooleanField(default=False)
 
     def __str__(self):
         return self.message

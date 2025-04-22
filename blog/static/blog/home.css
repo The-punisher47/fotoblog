@@ -552,3 +552,254 @@ body::after {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre */
 }
+
+
+.notifications-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  padding: 2rem;
+  color: #fff;
+  text-align: center;
+}
+
+.notifications-wrapper h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #ffd700;
+}
+
+.notifications-dialogue-box {
+  width: 90%;
+  max-width: 900px;
+  max-height: 450px;
+  overflow-y: auto;
+  background-color: rgba(40, 40, 40, 0.9);
+  border-radius: 15px;
+  border: 2px solid #444;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+  padding: 1rem;
+}
+
+.notifications-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #eee;
+}
+
+.notifications-table thead {
+  position: sticky;
+  top: 0;
+  background-color: #1f1f1f;
+}
+
+.notifications-table th,
+.notifications-table td {
+  padding: 12px;
+  border-bottom: 1px solid #444;
+  text-align: left;
+}
+
+.notifications-table tr.unread {
+  background-color: #2a2a2a;
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.notifications-table tr:hover {
+  background-color: #3b3b3b;
+}
+
+.mark-read-form {
+  margin-top: 1rem;
+  text-align: right;
+  width: 90%;
+  max-width: 900px;
+}
+
+.mark-read-btn {
+  padding: 10px 20px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.mark-read-btn:hover {
+  background-color: #0b72b5;
+}
+
+
+/*css jouter deepseek*/
+
+.mark-as-read-btn {
+  padding: 5px 10px;
+  background-color: #2869ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.mark-as-read-btn:hover {
+  background-color: #1a5af5;
+}
+
+.notifications-table tr.unread {
+  background-color: #f8f9fa;
+}
+.mark-single-read-btn {
+  padding: 5px 10px;
+  background-color: #2869ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.mark-single-read-btn:hover {
+  background-color: #1a5af5;
+}
+
+.mark-read-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.notifications-table tr.unread {
+  background-color: #f8f9fa;
+}
+/* Style pour la colonne Action */
+.action-cell {
+  text-align: center;
+  min-width: 150px;
+}
+
+.mark-single-read-btn {
+  padding: 5px 10px;
+  background-color: #2869ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.already-read {
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Pour garder l'espace même quand le bouton est absent */
+.action-cell:empty::after {
+  content: "-";
+  color: #6c757d;
+}
+
+/* Style des boutons */
+.mark-single-read-btn {
+  padding: 5px 10px;
+  background-color: #2869ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+/* Quand le bouton est désactivé */
+.mark-single-read-btn.disabled-btn {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Colonne Statut */
+.status-cell {
+  font-weight: bold;
+}
+
+/* Bouton principal désactivé */
+.mark-read-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Style pour les boutons déjà lus */
+.already-read-btn {
+  padding: 5px 10px;
+  background-color: #e9ecef;
+  color: #6c757d;
+  border: none;
+  border-radius: 4px;
+  cursor: default;
+}
+
+.disabled-btn {
+  background-color: #e9ecef !important;
+  color: #6c757d !important;
+  cursor: not-allowed !important;
+}
+
+
+.mark-single-read-btn {
+  padding: 5px 10px;
+  background-color: #2869ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.mark-single-read-btn.disabled-btn {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.status-cell {
+  font-weight: bold;
+}
+
+/* Style des champs OBS */
+.obs-input {
+  width: 100%;
+  min-height: 60px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+  transition: all 0.3s;
+}
+
+.obs-input:focus {
+  outline: none;
+  border-color: #2869ff;
+  box-shadow: 0 0 0 2px rgba(40, 105, 255, 0.2);
+}
+
+/* Style des boutons d'action */
+.btn-action {
+  padding: 5px 10px;
+  margin: 2px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.delete {
+  background-color: #f44336;
+  color: white;
+}

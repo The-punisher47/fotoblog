@@ -28,4 +28,14 @@ urlpatterns = [
     path('ajouter-depose/<int:jante_id>/', views.ajouter_depose, name='ajouter_depose'),
     path('retirer-depose/<int:jante_id>/', views.retirer_depose, name='retirer_depose'),
     path('', include('blog.urls')),  # Inclure les URLs de l'application blog
+    # Ajouter ces nouvelles routes
+
+    path('profile/', blog_views.user_profile, name='user_profile'),
+    path('historique/', blog_views.action_history, name='action_history'),
+    path('gestion-utilisateurs/', blog_views.user_management, name='user_management'),
+    path('toggle-admin/<int:user_id>/', blog_views.toggle_superuser, name='toggle_superuser'),
+    
+    path('notifications/count/', views.unread_notifications_count, name='notifications_count'),
+
+
 ]

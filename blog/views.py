@@ -18,6 +18,25 @@ from django.http import HttpResponse
 
 import xlsxwriter
 from io import BytesIO
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
+from django.contrib.auth.models import User
+from .models import ActionLog
+from django.http import JsonResponse, HttpResponseForbidden
+from authentification.models import User  # Import du modèle User personnalisé
+from django.shortcuts import get_object_or_404
+from .models import ActionLog, Jante, Notification
+
+
+
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def unread_notifications_count(request):
+    unread_count = Notification.objects.filter(is_read=False).count()
+    return JsonResponse({'unread_count': unread_count})
+
+
 
 
 @login_required
@@ -75,6 +94,13 @@ def add_jante_view(request):
             jante.dernier_ndi = 0
             jante.prochain_ndi = 5  # Définit prochain_ndi à 5 par défaut
             jante.save()
+            ActionLog.objects.create(
+            user=request.user,
+            action_type="CREATE",
+            target_model="Jante",
+            details=f"Ajout jante SN:{jante.serial_number}, Catégorie:{jante.category}"
+            )
+
             return redirect('gestion')  # Redirige vers la page GESTION après l'ajout
     else:
         form = JanteForm()
@@ -93,6 +119,13 @@ def ajouter_depose(request, jante_id):
             jante.update_ndi_values()  # Met à jour les valeurs NDI
             jante.check_and_create_notification()  # Vérifie et crée une notification si nécessaire
             jante.save()
+            ActionLog.objects.create(
+            user=request.user,
+            action_type="UPDATE",
+            target_model="Jante",
+            details=f"Ajout de dépose — SN:{jante.serial_number}, NDI:{jante.prochain_ndi}"
+            )
+
             return JsonResponse({
                 'success': True,
                 'nombre_de_deposes': jante.nombre_de_deposes,
@@ -113,6 +146,13 @@ def retirer_depose(request, jante_id):
                 jante.nombre_de_deposes -= 1
                 jante.update_ndi_values()  # Cette méthode doit mettre à jour les champs NDI
                 jante.save()
+                ActionLog.objects.create(
+                user=request.user,
+                action_type="UPDATE",
+                target_model="Jante",
+                details=f"Retrait de dépose — SN:{jante.serial_number}, NDI:{jante.prochain_ndi}"
+                )
+
                 return JsonResponse({
                     'success': True,
                     'nombre_de_deposes': jante.nombre_de_deposes,
@@ -132,6 +172,13 @@ def update_obs(request, jante_id):
             obs_value = request.POST.get("obs", "")
             jante.obs = obs_value
             jante.save()
+            ActionLog.objects.create(
+            user=request.user,
+            action_type="UPDATE",
+            target_model="Jante",
+            details=f"Modification OBS — SN:{jante.serial_number}, OBS:{obs_value}"
+            )
+
             return JsonResponse({"success": True, "obs": jante.obs})
         except Jante.DoesNotExist:
             return JsonResponse({"success": False, "message": "Jante introuvable."})
@@ -156,6 +203,13 @@ def export_table_pdf(request):
         y -= 20
 
     pdf.save()
+    ActionLog.objects.create(
+    user=request.user,
+    action_type="EXPORT",
+    target_model="Jante",
+    details="Export Excel — Tableau de gestion"
+    )
+
     return response
 
 @login_required
@@ -186,6 +240,13 @@ def export_table_excel(request):
 
     response = HttpResponse(output, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename="tableau_gestion.xlsx"'
+    ActionLog.objects.create(
+    user=request.user,
+    action_type="EXPORT",
+    target_model="Jante",
+    details="Export Excel — Tableau de gestion"
+    )
+
     return response
 
 @login_required
@@ -228,3 +289,33 @@ def update_obs(request, jante_id):
         except Jante.DoesNotExist:
             return JsonResponse({"success": False, "message": "Jante introuvable."})
     return JsonResponse({"success": False, "message": "Méthode non autorisée."})
+
+# Ajouter après les vues existantes
+@login_required
+def user_profile(request):
+    return render(request, 'blog/user_profile.html', {'user': request.user})
+
+@login_required
+def action_history(request):
+    logs = ActionLog.objects.filter(target_model="Jante").order_by('-timestamp')[:100]
+    return render(request, 'blog/action_history.html', {'logs': logs})
+
+@login_required
+def user_management(request):
+    if not request.user.is_superuser:
+        return render(request, 'authentification/access_denied.html', 
+                    {'message': 'Accès réservé aux administrateurs'})
+    
+    users = User.objects.all()
+    return render(request, 'blog/user_management.html', {'users': users})
+
+@login_required
+@csrf_exempt
+def toggle_superuser(request, user_id):
+    if not request.user.is_superuser:
+        return HttpResponseForbidden()
+    
+    user = get_object_or_404(User, id=user_id)
+    user.is_superuser = not user.is_superuser
+    user.save()
+    return redirect('user_management')

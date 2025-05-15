@@ -1,39 +1,114 @@
-<!-- filepath: d:\Desktop\fotoblog\fotoblog\blog\templates\blog\base_blog.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{% static 'blog/home.css' %}">
     <title>{% block title %}Fotoblog{% endblock title %}</title>
+    <style>
+  /* Barre latérale rétractée */
+  #sidebar.collapsed {
+    width: 60px !important;
+    overflow: hidden;
+    transition: width 0.3s ease;
+  }
+
+  .app-content.collapsed {
+    margin-left: 60px !important;
+    transition: margin-left 0.3s ease;
+  }
+
+  #sidebar.collapsed .sidebar-list-item span,
+  #sidebar.collapsed .logout-label {
+    display: none;
+  }
+
+  /* Icônes visibles même rétracté */
+  .sidebar .sidebar-list-item i {
+    margin-right: 0.5rem;
+  }
+</style>
+
+
 </head>
 <body>
-    <!-- Sidebar fixe -->
     {% include "blog/zone_gauche.html" %}
 
-    <!-- Contenu principal -->
     <div class="app-content">
-        <!-- Header fixe -->
         {% include "blog/header.html" %}
-        
-        <!-- Afficher header2 uniquement sur certaines pages -->
-        {% if request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'TABLEAU_BORD' and request.resolver_match.url_name != 'NOTIFICATIONS' and request.resolver_match.url_name != 'add_jante' %} 
+        {% if request.resolver_match.url_name == 'gestion' %}
           {% include "blog/header2.html" %}
         {% endif %}
 
-        
-        <!-- Contenu dynamique -->
         <div class="dynamic-content">
             {% block content %}{% endblock content %}
         </div>
     </div>
 
-    <!-- Footer -->
-   
+    <!-- Script JS principal -->
     <script src="{% static 'blog/home.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- MODALE DE CONFIRMATION -->
+
+    <!-- 🔔 Notification auto + immédiate -->
+    <script>
+      function updateNotificationCount() {
+        fetch("{% url 'notifications_count' %}")
+          .then(response => response.json())
+          .then(data => {
+            const countSpan = document.getElementById('notif-count');
+            if (data.unread_count > 0) {
+              if (countSpan) {
+                countSpan.textContent = data.unread_count;
+                countSpan.style.display = 'flex';
+              } else {
+                const notifLink = document.querySelector('.notification-link');
+                if (notifLink) {
+                  const newBadge = document.createElement('span');
+                  newBadge.id = "notif-count";
+                  newBadge.className = "notif-badge";
+                  newBadge.textContent = data.unread_count;
+                  newBadge.style.cssText = `
+                    position: absolute;
+                    top: -5px;
+                    right: -10px;
+                    background-color: red;
+                    color: white;
+                    font-size: 11px;
+                    font-weight: bold;
+                    padding: 2px 6px;
+                    border-radius: 12px;
+                    line-height: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-width: 18px;
+                    height: 18px;
+                  `;
+                  notifLink.appendChild(newBadge);
+                }
+              }
+            } else if (countSpan) {
+              countSpan.remove();
+            }
+          })
+          .catch(error => {
+            console.error('Erreur lors de la récupération du nombre de notifications :', error);
+          });
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        updateNotificationCount();
+        setInterval(updateNotificationCount, 10000); // Mise à jour automatique
+      });
+
+      // 🔄 Mettre à jour immédiatement après une action (ex: "marquer comme lu")
+      window.refreshNotificationsBadge = updateNotificationCount;
+    </script>
+
+    <!-- Modale -->
     <div id="confirmation-modal" class="modal-overlay" style="display: none;">
       <div class="modal-box">
         <p id="modal-message">Veux-tu faire une dépose ?</p>
@@ -43,9 +118,40 @@
         </div>
       </div>
     </div>
-    <!-- DEBUG -->
-    <div style="position:fixed;bottom:0;left:0;background:#000;color:#fff;padding:5px;">
-        has_unread_notifications: {{ has_unread_notifications }}
-    </div>
+
+    
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggle-sidebar");
+    const sidebar = document.getElementById("sidebar");
+    const content = document.querySelector(".app-content");
+    const icon = document.getElementById("sidebar-icon");
+
+    toggleBtn.addEventListener("click", function () {
+        sidebar.classList.toggle("collapsed");
+        content.classList.toggle("collapsed");
+        icon.className = sidebar.classList.contains("collapsed") ? "fas fa-arrow-right" : "fas fa-bars";
+    });
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggle-sidebar");
+    const sidebar = document.getElementById("sidebar");
+    const content = document.querySelector(".app-content");
+    const icon = document.getElementById("sidebar-icon");
+
+    if (toggleBtn && sidebar && content && icon) {
+      toggleBtn.addEventListener("click", function () {
+        sidebar.classList.toggle("collapsed");
+        content.classList.toggle("collapsed");
+        icon.className = sidebar.classList.contains("collapsed") ? "fas fa-arrow-right" : "fas fa-bars";
+      });
+    }
+  });
+</script>
+
+
 </body>
 </html>

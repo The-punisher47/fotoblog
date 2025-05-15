@@ -10,6 +10,8 @@ def unread_notifications(request):
     return {}
 
 def notifications_processor(request):
-    return {
-        'notifications': Notification.objects.filter(is_read=False).order_by('-created_at')
-    }
+    if request.user.is_authenticated:
+        return {
+            'notifications': Notification.objects.filter(is_read=False).order_by('-created_at')
+        }
+    return {}  # Ne retourne rien si l'utilisateur n'est pas connecté

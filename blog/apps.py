@@ -1,3 +1,5 @@
+#<!-- filepath: d:\Desktop\fotoblog\fotoblog\blog\templates\blog\context_processors.py -->
+
 from django.apps import AppConfig
 
 

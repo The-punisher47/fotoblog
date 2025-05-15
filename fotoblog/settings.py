@@ -78,10 +78,15 @@ WSGI_APPLICATION = 'fotoblog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'fotoblogdb',            # nom de ta base créée dans pgAdmin
+        'USER': 'postgres',              # par défaut
+        'PASSWORD': 'beti1234',  # le mot de passe que tu as mis à l'installation
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
 
 
 # Password validation

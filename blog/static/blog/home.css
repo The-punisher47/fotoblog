@@ -803,3 +803,97 @@ body::after {
   background-color: #f44336;
   color: white;
 }
+.app-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  flex-wrap: wrap;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.app-content-headerText {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.app-content-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.app-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background-color: #3498db;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.app-button:hover {
+  background-color: #2c80b4;
+}
+
+.mode-switch {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  padding: 6px;
+  transition: transform 0.2s;
+}
+
+.mode-switch:hover {
+  transform: rotate(15deg);
+}
+.sidebar-toggle-btn {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+#sidebar.collapsed .sidebar-toggle-btn {
+    right: -10px;
+}
+
+#sidebar.collapsed .sidebar-toggle-btn i {
+    transform: rotate(180deg);
+}
+
+#sidebar.collapsed {
+    width: 60px !important;
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+.app-content.collapsed {
+    margin-left: 60px !important;
+    transition: margin-left 0.3s ease;
+}
+
+#sidebar.collapsed .sidebar-list-item span,
+#sidebar.collapsed .logout-link,
+#sidebar.collapsed .account-info-name {
+    display: none;
+}
+#toggle-sidebar {
+    transition: all 0.3s ease;
+}
+
+#sidebar.collapsed .app-icon {
+    display: none;
+}

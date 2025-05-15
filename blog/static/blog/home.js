@@ -842,3 +842,21 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const filterButton = document.querySelector('.jsFilter');
+  const filterMenu = document.querySelector('.filter-menu');
+
+  if (filterButton && filterMenu) {
+    filterButton.addEventListener('click', () => {
+      filterMenu.style.display = (filterMenu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!filterMenu.contains(e.target) && !filterButton.contains(e.target)) {
+        filterMenu.style.display = 'none';
+      }
+    });
+  }
+});
+

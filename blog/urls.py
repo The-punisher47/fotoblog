@@ -5,6 +5,7 @@ from django.urls import path
 from authentification import views as auth_views
 from blog import views as blog_views
 from blog import views
+from . import views
 
 
 urlpatterns = [
@@ -28,4 +29,12 @@ urlpatterns = [
     path('ajouter-depose/<int:jante_id>/', views.ajouter_depose, name='ajouter_depose'),
     path('retirer-depose/<int:jante_id>/', views.retirer_depose, name='retirer_depose'),
     path('mark-notification-as-read/<int:notification_id>/', views.mark_notification_as_read, name='mark_notification_as_read'),
+    path('notifications/count/', views.unread_notifications_count, name='notifications_count'),
+    
+    path('changer-mot-de-passe/', auth_views.changer_mot_de_passe, name='changer_mot_de_passe'),
+
 ]
+
+
+
+

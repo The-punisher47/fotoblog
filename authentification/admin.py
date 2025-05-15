@@ -1,3 +1,3 @@
 from django.contrib import admin
 
-# Register your models here.
+from authentification.models import User  # Si tu as un User personnalisé

@@ -1,0 +1,120 @@
+{% extends "blog/base_blog.html" %}
+
+{% block title %}Profil Utilisateur{% endblock %}
+
+{% block content %}
+<div class="user-profile-container">
+    <h1>Profil de {{ user.username }}</h1>
+    
+    <div class="user-info-card">
+        <div class="user-info-item">
+            <span class="info-label">Nom complet :</span>
+            <span class="info-value">
+                {% if user.is_superuser %}
+                    {{ user.username }}
+                {% else %}
+                    {{ user.first_name }} {{ user.last_name }}
+                {% endif %}
+            </span>
+        </div>
+
+        
+        <div class="user-info-item">
+            <span class="info-label">Email :</span>
+            <span class="info-value">{{ user.email }}</span>
+        </div>
+        
+        <div class="user-info-item">
+            <span class="info-label">Grade :</span>
+            <span class="info-value">{{ user.get_grade_display }}</span>
+        </div>
+    </div>
+
+    <div class="admin-actions">
+        {% if user.is_superuser %}
+            <a href="{% url 'signup' %}" class="btn-signup">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                </svg>
+                Inscrire un nouvel utilisateur
+            </a>
+        {% else %}
+            <div class="alert-box">
+                🚫 Fonction réservée aux administrateurs.
+            </div>
+        {% endif %}
+        <div class="admin-actions" style="text-align:center; margin-top: 2rem;">
+            <a href="{% url 'changer_mot_de_passe' %}" class="btn-signup" style="background: #dc3545;">
+                🔐 Changer le mot de passe
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<style>
+.user-profile-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.user-info-card {
+    background: rgba(40, 50, 70, 0.8);
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+}
+
+.user-info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-label {
+    font-weight: 500;
+    color: #2869ff;
+}
+
+.info-value {
+    color: #ffffff;
+}
+
+.admin-actions {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.btn-signup {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 12px 24px;
+    background: #2869ff;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.btn-signup:hover {
+    background: #1a5af5;
+    transform: translateY(-2px);
+}
+
+.alert-box {
+    background-color: #ffe6e6;
+    color: #b30000;
+    padding: 15px;
+    margin-top: 20px;
+    border-left: 6px solid #ff4d4d;
+    border-radius: 6px;
+    font-weight: 500;
+}
+</style>
+{% endblock %}

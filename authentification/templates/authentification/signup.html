@@ -1,37 +1,125 @@
-<!-- filepath: d:\Desktop\fotoblog\fotoblog\authentification\templates\authentification\signup.html-->
-{% extends 'base.html' %}
-{% block content %}
-<div class="signup-container">
-    <div class="signup-box">
-        <h1>INSCRIPTION</h1>
-        
-        {% if form.errors %}
-        <div class="alert alert-danger">
-            {% for field, errors in form.errors.items %}
-                <p>{{ field|capfirst }} : {{ errors|join:", " }}</p>
-            {% endfor %}
-        </div>
-        {% endif %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer un compte - Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'blog/home.css' %}">
+    <style>
+        body {
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-        <form method="post" class="signup-form">
+        .signup-wrapper {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .signup-wrapper h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #00bfff;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            flex: 1 1 45%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #aad8ff;
+        }
+
+        input, select {
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            background-color: #f0f8ff;
+            color: #000;
+            font-size: 16px;
+        }
+
+        .form-actions {
+            flex: 1 1 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn-submit {
+            background-color: #00bfff;
+            color: white;
+            padding: 12px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #009acd;
+        }
+
+        .errorlist {
+            background-color: #ffcccc;
+            color: #b30000;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            border-radius: 5px;
+            list-style: none;
+        }
+
+        @media (max-width: 600px) {
+            .form-group {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-wrapper">
+        <h2>👤 Inscription d’un nouvel utilisateur</h2>
+
+        <form method="post">
             {% csrf_token %}
-            
-            <div class="form-grid">
-                {% for field in form %}
-                <div class="form-group compact">
+
+            {% for field in form.visible_fields %}
+                <div class="form-group">
                     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                     {{ field }}
-                    {% if field.help_text %}
-                    <small class="help-text">{{ field.help_text|truncatechars:50 }}</small>
+                    {% if field.errors %}
+                        <div class="errorlist">{{ field.errors|join:", " }}</div>
                     {% endif %}
                 </div>
-                {% endfor %}
+            {% endfor %}
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">Créer le compte</button>
             </div>
-
-            <button type="submit" class="btn-signup">S'inscrire</button>
         </form>
-
-        <p class="login-link">Déjà inscrit ? <a href="{% url 'login' %}">Connexion</a></p>
     </div>
-</div>
-{% endblock %}
+</body>
+</html>

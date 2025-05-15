@@ -1,0 +1,77 @@
+<!-- filepath: d:\Desktop\fotoblog\fotoblog\blog\templates\blog\user_management.html -->
+
+
+{% extends "blog/base_blog.html" %}
+
+{% block title %}Gestion des Utilisateurs{% endblock %}
+
+{% block content %}
+<div class="management-container">
+    <h1>Gestion des Utilisateurs</h1>
+    
+    <table class="user-management-table">
+        <thead>
+            <tr>
+                <th>Nom d'utilisateur</th>
+                <th>Grade</th>
+                <th>Superutilisateur</th>
+                <th>Dernière connexion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.get_grade_display }}</td>
+                <td>{% if user.is_superuser %}✅{% else %}❌{% endif %}</td>
+                <td>{{ user.last_login|date:"d/m/Y H:i" }}</td>
+                <td class="user-actions">
+                    {% if not user.is_superuser %}
+                    <form method="post" action="{% url 'toggle_superuser' user.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-action {% if user.is_superuser %}delete{% else %}add{% endif %}">
+                            {% if user.is_superuser %}Rétrograder{% else %}Promouvoir{% endif %}
+                        </button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+.user-management-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.user-management-table th,
+.user-management-table td {
+    padding: 12px;
+    border: 1px solid #2d3748;
+    text-align: left;
+}
+
+.user-management-table th {
+    background-color: #2869ff;
+    color: white;
+}
+
+.user-actions form {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.btn-action.add {
+    background-color: #28a745 !important;
+}
+
+.btn-action.delete {
+    background-color: #dc3545 !important;
+}
+</style>
+{% endblock %}

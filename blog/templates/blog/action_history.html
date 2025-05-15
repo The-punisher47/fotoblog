@@ -1,0 +1,51 @@
+{% extends 'blog/base_blog.html' %}
+{% load static %}
+
+{% block title %}Historique des Actions{% endblock %}
+
+{% block content %}
+<div class="history-container" style="padding: 30px;">
+    <h2 style="font-size: 24px; margin-bottom: 20px; color: white;">📜 Historique des Actions – GESTION</h2>
+    
+    <div style="overflow-x:auto;">
+        <table style="width: 100%; border-collapse: collapse; background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.05); border-radius: 8px;">
+            <thead style="background-color: #f8f8f8; color: #111;">
+                <tr>
+                    <th style="padding: 12px; text-align: left;">Utilisateur</th>
+                    <th style="padding: 12px; text-align: left;">Action</th>
+                    <th style="padding: 12px; text-align: left;">Cible</th>
+                    <th style="padding: 12px; text-align: left;">Date/Heure</th>
+                    <th style="padding: 12px; text-align: left;">Détails</th>
+                </tr>
+            </thead>
+            <tbody style="color: #222;">
+                {% for log in logs %}
+                <tr style="border-bottom: 1px solid #eaeaea;">
+                    <td style="padding: 10px;">👤 {{ log.user.username }}</td>
+                    <td style="padding: 10px;">
+                        {% if log.action_type == "CREATE" %}
+                            🟢 Création
+                        {% elif log.action_type == "UPDATE" %}
+                            🟡 Modification
+                        {% elif log.action_type == "DELETE" %}
+                            🔴 Suppression
+                        {% elif log.action_type == "EXPORT" %}
+                            📤 Export
+                        {% else %}
+                            ⚙️ {{ log.action_type }}
+                        {% endif %}
+                    </td>
+                    <td style="padding: 10px;">{{ log.target_model }}</td>
+                    <td style="padding: 10px;">{{ log.timestamp|date:"d/m/Y H:i" }}</td>
+                    <td style="padding: 10px;">{{ log.details }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="padding: 20px; text-align: center; color: gray;">Aucune action enregistrée.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

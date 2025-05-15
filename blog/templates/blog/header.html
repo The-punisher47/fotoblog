@@ -1,10 +1,28 @@
 <!-- filepath: d:\Desktop\fotoblog\fotoblog\blog\templates\blog\header.html -->
 <div class="app-content-header">
-    <h1 class="app-content-headerText">JANTES</h1>
-    <button class="mode-switch" title="Switch Theme">
-        <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-        </svg>
-    </button>
-    <a href="{% url 'add_jante' %}" class="app-content-headerButton">Add NEW JANTE</a>
+    <h1 class="app-content-headerText">GSI-CND</h1>
+     
+    <div class="app-content-actions">
+        <!-- Mode switch -->
+        <button class="mode-switch" title="Changer le thème">
+            <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round"
+                 stroke-linejoin="round" stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+            </svg>
+        </button>
+
+        <!-- Bouton Ajouter Jante -->
+        <a href="{% url 'add_jante' %}" class="app-button add-btn">Ajouter Jante</a>
+
+        <!-- Lien Profil -->
+        <a href="{% url 'user_profile' %}" class="app-button profile-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                 stroke-linejoin="round" class="feather feather-user">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>Profil</span>
+        </a>
+    </div>
 </div>
